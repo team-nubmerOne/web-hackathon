@@ -6,11 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Open Graph 미리보기 정보 노출(썸네일 등) -->
-    <meta property="og:image" content="./img/thumbnail.png">
-    <meta property="og:title" content="HSU-LikeLion-MBTI">
-    <meta property="og:description" content="한성대학교 멋쟁이사자처럼 10기가 제작한 MBTI 유형테스트입니다.">
-    <meta property="og:type" content="website">
     
     <title>웹공학 해커톤 프로젝트</title>
 
@@ -43,66 +38,120 @@
             width: 100%;
             height: 50%;
             border:1px solid black;
-            display:none;
+           
         }
         #bottomContainer{
             width: 100%;
             height: 50%;
             border:1px solid red;
-            display:none;
+           
         }
         #btn1{
             margin:0 auto;
+            
+           background-color: #333;
+           border: 2px solid #333;
+           color: #fff;
+           line-height: 40px;
         }
+        .button:hover {
+       background-color: #fff;
+       border-color: #59b1eb;
+       color: #59b1eb;
+    }
+        div {text-align: center;}
     </style>
 </head>
     
 <body>
-    <section id="name" class="my-5 py-5 px-4 mx-auto">
-        <div class="namefont name_title mx-auto mt-3"><h1 style="text-align:center">데이터들을 한눈에?</h1></div>
-    
-        <img src ="./hompage/hansung.jpg"
-            width="500px"
-            height="200px">
-        </img>
-    
+
     <div id="container">
-        <div id="topContainer"></div>
+        <div id="topContainer">
+            <section id="name" class="my-5 py-5 px-4 mx-auto">
+                <div class="namefont name_title mx-auto mt-3"><h1>한 눈에 보는 데이터</h1></div>
+            
+                <img src ="titlepicture.png"
+                    width="700px"
+                    height="500px">
+                </img>
+        </div>
         <div id="bottomContainer">
-            <button id="btn1" type="button" class="" onClick="js:start()">엑셀연결</button>
-                
-            </p>
-            <span style="font-weight: bold;">한성대학교 넘버원</span>
-                이따가 설명 작성합시다<div class=""></div>
+            <button id="btn1" type="button" class="" onClick="js:start()">Button</button></p>
+            <span style="font-weight: bold;">한성대학교 넘버원</span></p>
+            기상청은 거짓말쟁이<div class="">
+            
+            <p>기상청이 예보한 기온</p>
+            <input type="text" id="predT" value=""/>
+            <p>AI예측 기온 : </p>
+            <input type="text" id="aiPredT" value=""/><br>
             <span style="font-weight: bold; color: #446bb3;">#박도 #윤정현 #박소은 #박시현</span>
+        
+        
+            <div class="share"><br></br>
+            <div class="share_text mt -3">공유하기</div>
+            <img class="facebook col-lg-l col-sm-2 img-fluid" src="facebook.png"onclick="js:shareFacebook()">
+            <img class="kakao col-lg-l col-sm-2 img-fluid" src="kakao.png"onclick="js:sendLink()">
+            <img class="linkcopy col-lg-l col-sm-2 img-fluid" src="linkcopy.png"onclick="js:clip()">
         </div>
     </section>
 
-        <!--function start(){
-            main.style.WebkitAnimation="fadeOut ls";
-            main.style.animation="fadeIn ls";
-            setTimeout(()=>{
-                qna.style.WebkitAnimation="fadeIn ls";
-                qna.style.display="fadeIn ls";
-                setTimeput(()=>{
-                    main.style.display="none;
-                    qna.style.display="block";
-                },450);
-                let qIdx=0;
-                goNext(qIdx);
-            },450);
-        }
-        -->
-        <input style="width:1000px;height:1000px;" type="button" onclick="test()"/>
+
     </div>
 
 
 </body>
-
 <script>
     function test(){
-        location.href="modeling/polls/20";
+    var httpRequest;
+        
+        httpRequest = new XMLHttpRequest();
+        
+        httpRequest.onreadystatechange = () => {
+            
+            
+            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                
+                console.log(`data : ${JSON.stringify(data)}`);
+                    if (httpRequest.status === 200 ||  httpRequest.status == 201) {
+                        var res = httpRequest.response;
+                        console.log(`성공오나? ${JSON.stringify(res.stdout)}`);
+                        console.log(`실패오나? ${JSON.stringify(res.stderr)}`);
+                        if(res.code == 200) { // 성공
+                            
+                            //const result = `결과 : ${res.stdout.pass === true ? "정답입니다!!!" : "오답입니다"}\n${res.stdout.correct} / ${res.stdout.total}\n정답률 : ${parseInt(res.stdout.percentage)}%`;
+                            const result = res.stdout;
+                            console.log(`result 뭐로오지? ${result}`);
+                            
+                            //document.getElementById("resultSpace").innerText = res.stdout;
+                            //document.getElementById("resultSpace").innerText = result;
+                            document.getElementById("aiPredT").value = result;
+                            //document.getElementById("resultSpace").style.color = "white";
+                            //if ( res.stdout.pass === true ) {
+                                // if ( window.confirm("문제를 맞췄습니다!\n문제페이지로돌아가시겠습니까?") ) {
+                                //     history.back();
+                                // }
+                            //}
+                        } //else if (res.code == 100) {
+                            //document.getElementById("resultSpace").innerText = res.stderr;
+                            //document.getElementById("resultSpace").style.color = "red";
+                        //}
+                        
+                        
+                    } else {
+                        alert('Request Error!');
+                    }
+                }
+            };
+            var predt = document.getElementById("predT").value;
+            
+            //httpRequest.open('POST', `${ipConfig}/test`,true);
+            httpRequest.open('POST', `modeling/polls/${predt}`,true);
+            httpRequest.responseType = "json";
+            httpRequest.setRequestHeader("Content-Type", "application/json");  
+            
+            // userid, 푼 문제 번호 넘겨줘야 함
+            httpRequest.send(JSON.stringify(data));
+            
     }
-
 </script>
 </html>
