@@ -6,30 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Open Graph 미리보기 정보 노출(썸네일 등) -->
-    <meta property="og:image" content="./img/thumbnail.png">
-    <meta property="og:title" content="HSU-LikeLion-MBTI">
-    <meta property="og:description" content="한성대학교 멋쟁이사자처럼 10기가 제작한 MBTI 유형테스트입니다.">
-    <meta property="og:type" content="website">
-    
-    <title>상상부기 프렌즈 유형 테스트</title>
-
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/animation.css">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/qna.css">
-    <link rel="stylesheet" href="./css/result.css">
-
-    <!-- [Bootstrap] -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-    <!-- Kakao 공유 위함 -->
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    <script>
-        Kakao.init('javasscript 인증키');
-    </script>
+   <title>웹개발 해커톤 1조</title>
     <style>
+
+@font-face {
+        font-family: 'Y_Spotlight';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/Y_Spotlight.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+    .namefont{
+        font-family: 'Y_Spotlight';
+    }
+
         #container{
 
             width:1000px;
@@ -46,16 +35,25 @@
             height: 50%;
             border:1px solid red;
         }
+
     </style>
 </head>
 
 <body>
-    
+  
+    <section id="name" class="my-5 py-5 px-4 mx-auto">
+    <div class="namefont name_title mx-auto mt-3"><h1 style="text-align:center">데이터들을 한눈에?</h1></div>
+
+    <img src ="hansung.jpg"
+        width=""
+        height="">
+    </img>
     <div id="container">
         <div id="topContainer"></div>
         <div id="bottomContainer"></div>
 
     </div>
+    </section>
 
 
 </body>
